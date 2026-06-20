@@ -1,5 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { Instagram, Twitter, Youtube, Sparkles } from "lucide-react";
+import { Sparkles, AtSign, Send, PlayCircle } from "lucide-react";
+
+const Instagram = AtSign;
+const Twitter = Send;
+const Youtube = PlayCircle;
 
 export function Footer() {
   return (
