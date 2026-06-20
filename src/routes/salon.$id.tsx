@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
-import { getSalon } from "@/lib/salons";
+import { getSalon, type Salon } from "@/lib/salons";
 import { Star, MapPin, Clock, Heart, Share2, Calendar, Sparkles, ChevronRight, Check } from "lucide-react";
 
 export const Route = createFileRoute("/salon/$id")({
@@ -23,7 +23,7 @@ export const Route = createFileRoute("/salon/$id")({
 });
 
 function SalonPage() {
-  const { salon } = Route.useLoaderData();
+  const { salon } = Route.useLoaderData() as { salon: Salon };
   const [serviceIdx, setServiceIdx] = useState(0);
   const [stylistIdx, setStylistIdx] = useState(0);
   const [date, setDate] = useState(2);
