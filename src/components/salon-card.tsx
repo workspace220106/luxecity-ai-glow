@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Star, MapPin, ArrowUpRight } from "lucide-react";
 import type { Salon } from "@/lib/salons";
@@ -14,8 +14,7 @@ export function SalonCard({ salon, index = 0 }: { salon: Salon; index?: number }
       className="group"
     >
       <Link
-        to="/salon/$id"
-        params={{ id: salon.id }}
+        to={`/salon/${salon.id}`}
         className="block rounded-3xl bg-gradient-card overflow-hidden border border-border/60 hover:border-gold/40 transition-all hover:ring-gold"
       >
         <div className="relative aspect-[4/3] overflow-hidden">

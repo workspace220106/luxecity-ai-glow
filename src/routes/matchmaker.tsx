@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { Nav } from "@/components/nav";
@@ -7,16 +7,11 @@ import { AiOrb } from "@/components/ai-orb";
 import { salons } from "@/lib/salons";
 import { Sparkles, Send, ArrowRight } from "lucide-react";
 
-export const Route = createFileRoute("/matchmaker")({
-  head: () => ({ meta: [{ title: "AI Matchmaker — Mumbai Luxe" }] }),
-  component: Matchmaker,
-});
-
 const occasions = ["Bridal week", "Date night", "Boardroom", "Weekend reset", "Sangeet", "Anniversary"];
 const areas = ["Bandra", "Worli", "Juhu", "Lower Parel", "Colaba", "Powai"];
 const budgets = ["Under ₹5k", "₹5k – ₹12k", "₹12k – ₹25k", "₹25k+"];
 
-function Matchmaker() {
+export default function Matchmaker() {
   const [occ, setOcc] = useState("Sangeet");
   const [area, setArea] = useState("Bandra");
   const [budget, setBudget] = useState("₹12k – ₹25k");

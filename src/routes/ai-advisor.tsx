@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { Nav } from "@/components/nav";
@@ -7,14 +7,9 @@ import { AiOrb } from "@/components/ai-orb";
 import { Upload, Scan, Sparkles, Camera, ArrowRight } from "lucide-react";
 import { salons } from "@/lib/salons";
 
-export const Route = createFileRoute("/ai-advisor")({
-  head: () => ({ meta: [{ title: "AI Beauty Advisor — Mumbai Luxe" }] }),
-  component: Advisor,
-});
-
 type Phase = "upload" | "scanning" | "results";
 
-function Advisor() {
+export default function Advisor() {
   const [phase, setPhase] = useState<Phase>("upload");
   const [img, setImg] = useState<string | null>(null);
 
@@ -206,7 +201,7 @@ function ResultsPanel({ src }: { src: string }) {
         <div className="text-xs uppercase tracking-[0.3em] text-gold">Curated for you</div>
         <div className="mt-3 space-y-3">
           {matches.map((s, i) => (
-            <Link to="/salon/$id" params={{ id: s.id }} key={s.id} className="flex items-center gap-4 p-3 rounded-2xl glass hover:ring-gold transition-all group">
+            <Link to={`/salon/${s.id}`} key={s.id} className="flex items-center gap-4 p-3 rounded-2xl glass hover:ring-gold transition-all group">
               <img src={s.image} alt="" className="h-16 w-16 rounded-xl object-cover" />
               <div className="flex-1">
                 <div className="font-medium">{s.name}</div>

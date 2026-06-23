@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { Sparkles, AtSign, Send, PlayCircle } from "lucide-react";
 
 const Instagram = AtSign;
@@ -42,8 +42,6 @@ export function Footer() {
           <div className="text-sm font-medium mb-4 text-gradient-gold">Company</div>
           <ul className="space-y-2 text-sm text-muted-foreground">
             <li><Link to="/about" className="hover:text-foreground">About</Link></li>
-            <li><Link to="/partners" className="hover:text-foreground">For Salons</Link></li>
-            <li><Link to="/investors" className="hover:text-foreground">Investors</Link></li>
             <li><Link to="/contact" className="hover:text-foreground">Contact</Link></li>
           </ul>
         </div>

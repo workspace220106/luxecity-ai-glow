@@ -1,15 +1,10 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { Mail, ArrowRight } from "lucide-react";
 
-export const Route = createFileRoute("/about")({
-  head: () => ({ meta: [{ title: "About — Mumbai Luxe" }] }),
-  component: About,
-});
-
-function About() {
+export default function About() {
   return (
     <div className="min-h-screen">
       <Nav />

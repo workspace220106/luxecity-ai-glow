@@ -1,15 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { Mail, MapPin, Phone, Send } from "lucide-react";
 
-export const Route = createFileRoute("/contact")({
-  head: () => ({ meta: [{ title: "Contact — Mumbai Luxe" }] }),
-  component: Contact,
-});
-
-function Contact() {
+export default function Contact() {
   return (
     <div className="min-h-screen">
       <Nav />

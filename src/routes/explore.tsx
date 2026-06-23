@@ -1,39 +1,36 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { SalonCard } from "@/components/salon-card";
-import { salons } from "@/lib/salons";
+import { salons, getLiveSalons, type Salon } from "@/lib/salons";
 import { Search, SlidersHorizontal, Map as MapIcon, Grid3x3, Sparkles } from "lucide-react";
-
-export const Route = createFileRoute("/explore")({
-  head: () => ({
-    meta: [
-      { title: "Explore Salons — Mumbai Luxe" },
-      { name: "description", content: "Discover Mumbai's finest luxury salons. Filtered by area, mood, occasion." },
-    ],
-  }),
-  component: Explore,
-});
 
 const areas = ["All", "Bandra West", "Worli", "Juhu", "Lower Parel", "Powai", "Colaba"];
 const tags = ["All", "Balayage", "Bridal", "Spa", "Editorial", "AI Diagnostics", "Clean Beauty"];
 
-function Explore() {
+export default function Explore() {
+  const [salonsList, setSalonsList] = useState<Salon[]>(salons);
   const [area, setArea] = useState("All");
   const [tag, setTag] = useState("All");
   const [q, setQ] = useState("");
   const [view, setView] = useState<"grid" | "map">("grid");
 
+  useEffect(() => {
+    getLiveSalons().then((list) => {
+      setSalonsList(list);
+    });
+  }, []);
+
   const filtered = useMemo(() => {
-    return salons.filter((s) => {
+    return salonsList.filter((s) => {
       if (area !== "All" && s.area !== area) return false;
       if (tag !== "All" && !s.tags.includes(tag)) return false;
       if (q && !`${s.name} ${s.tagline} ${s.area}`.toLowerCase().includes(q.toLowerCase())) return false;
       return true;
     });
-  }, [area, tag, q]);
+  }, [salonsList, area, tag, q]);
 
   return (
     <div className="min-h-screen">
@@ -87,7 +84,7 @@ function Explore() {
             {filtered.map((s, i) => <SalonCard key={s.id} salon={s} index={i} />)}
           </div>
         ) : (
-          <MapView />
+          <MapView salonsList={filtered} />
         )}
       </div>
 
@@ -117,7 +114,7 @@ function FilterRow({ label, items, value, onChange }: { label: string; items: st
   );
 }
 
-function MapView() {
+function MapView({ salonsList }: { salonsList: Salon[] }) {
   return (
     <div className="relative rounded-3xl overflow-hidden border border-border/60 aspect-[16/9] glass-strong">
       <svg viewBox="0 0 800 450" className="absolute inset-0 w-full h-full opacity-60">
@@ -130,7 +127,7 @@ function MapView() {
         {/* coastline */}
         <path d="M0,300 Q200,200 350,260 T700,250 L800,450 L0,450 Z" fill="oklch(0.55 0.22 300 / 0.15)" />
       </svg>
-      {salons.map((s, i) => (
+      {salonsList.map((s, i) => (
         <motion.div
           key={s.id}
           initial={{ scale: 0 }}

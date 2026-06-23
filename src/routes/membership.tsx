@@ -1,13 +1,8 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { Crown, Check, Sparkles } from "lucide-react";
-
-export const Route = createFileRoute("/membership")({
-  head: () => ({ meta: [{ title: "The Luxe Club — Mumbai Luxe" }] }),
-  component: Membership,
-});
 
 const tiers = [
   {
@@ -34,7 +29,7 @@ const tiers = [
   },
 ];
 
-function Membership() {
+export default function Membership() {
   return (
     <div className="min-h-screen">
       <Nav />

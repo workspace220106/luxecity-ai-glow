@@ -1,30 +1,18 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { CursorGlow } from "@/components/cursor-glow";
 import { AiOrb } from "@/components/ai-orb";
 import { SalonCard } from "@/components/salon-card";
-import { salons } from "@/lib/salons";
+import { salons, getLiveSalons, type Salon } from "@/lib/salons";
 import {
   Sparkles, Scan, Wand2, MapPin, Calendar, Shield, ArrowRight,
   Quote, Star, Smartphone, Crown, ChevronRight,
 } from "lucide-react";
 
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Mumbai Luxe — India's AI-curated luxury salon marketplace" },
-      { name: "description", content: "Discover Mumbai's finest ateliers. Book master stylists. AI Beauty Advisor, AI Matchmaker, and the Luxe Club — designed for the city's most discerning." },
-      { property: "og:title", content: "Mumbai Luxe — Luxury beauty, curated by AI" },
-      { property: "og:description", content: "Mumbai's most exquisite salons in one beautiful place." },
-    ],
-  }),
-  component: Home,
-});
-
-function Home() {
+export default function Home() {
   return (
     <div className="relative min-h-screen overflow-x-hidden">
       <CursorGlow />
@@ -266,6 +254,14 @@ function Stats() {
 
 /* ---------- FEATURED ---------- */
 function FeaturedSalons() {
+  const [salonsList, setSalonsList] = useState<Salon[]>(salons.slice(0, 6));
+
+  useEffect(() => {
+    getLiveSalons().then((list) => {
+      setSalonsList(list.slice(0, 6));
+    });
+  }, []);
+
   return (
     <section className="mx-auto max-w-7xl px-6 py-24">
       <SectionHeader
@@ -275,7 +271,7 @@ function FeaturedSalons() {
         cta={{ label: "Browse all", to: "/explore" }}
       />
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
-        {salons.slice(0, 6).map((s, i) => (
+        {salonsList.map((s, i) => (
           <SalonCard key={s.id} salon={s} index={i} />
         ))}
       </div>
